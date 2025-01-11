@@ -14,17 +14,12 @@ print(df.describe())
 print(df.isnull().sum())
 
 
-print(df['gender'].unique())
-print(df['country'].unique())
-print(df['cancer_stage'].unique())
-print(df['family_history'].unique())
-print(df['smoking_status'].unique())
-print(df['treatment_type'].unique())
-print(df['survived'].unique())
+df.dropna(subset=['price'],inplace=True)
+df['mileage'].fillna(df['mileage'].median(),inplace=True)
+df=pd.get_dummies(df,columns=['make','fuel','transmission'],drop_first=True)
+df.drop(columns=['name','description','exterior_color','interior_color'],inplace=True)
+print(df['engine'].unique())
 
 
-sns.countplot(x='survived', data=df)
-plt.title('Survival Count')
-plt.show()
 sns.histplot(df['price'],bins=30, kde=True)
 plt.show()
